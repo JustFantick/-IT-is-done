@@ -1,0 +1,83 @@
+$maxWidth: 1280;
+@mixin adaptiv-font($pcSize, $mobSize) {
+	$addSize: $pcSize - $mobSize;
+	$maxWidth: $maxWidth - 320;
+	font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+@mixin scroll-appearance($X, $Y) {
+	transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+	transform: translate($X, $Y);
+	opacity: 0;
+	&._active {
+		transform: translate(0px, 0px);
+		opacity: 1;
+	}
+}
+/* Ограничивающая оболочка */
+.slick-list {
+	overflow: hidden;
+}
+/* Слайд */
+.slick-slide {
+	transition: all 0.5s ease-out 0s;
+}
+/* Стрелка */
+.slick-arrow {
+	position: absolute;
+	left:50%;
+	font-size: 0px;
+}
+/* Стрелка влево */
+.slick-arrow.slick-prev {
+	top: -25px;
+	background: url('../img/keyboard_arrow_up.webp') 0 0 / cover no-repeat;
+	width: 25px;
+	height: 15px;
+}
+/* Стрелка вправо */
+.slick-arrow.slick-next {
+	bottom: -25px;
+	background: url('../img/keyboard_arrow_down.webp') 0 0 / cover no-repeat;
+	width: 25px;
+	height: 15px;
+}
+
+.slider {
+	@include scroll-appearance(50%,0%);
+	transition-delay: 0.3s;
+	position: relative;
+	&__item {
+		padding: 20px 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		img {
+			max-width: 100%;
+			object-fit: cover;
+			margin-right: 10px;
+		}
+	}
+	&__text {
+		min-width: 190px;
+		text-align: left;
+		padding: 25px 25px 25px 20px;
+		box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+		border-radius: 5px;
+		background-color: #ffffff;
+		h4 {
+			color: #061e37;
+			font-family: Raleway;
+			@include adaptiv-font(18, 14);
+			line-height: 150%;
+			font-weight: 700;
+			margin-bottom: 10px;
+		}
+		p {
+			color: #78909c;
+			font-family: Raleway;
+			@include adaptiv-font(15, 12);
+			font-weight: 400;
+			line-height: 170%;
+		}
+	}
+}
